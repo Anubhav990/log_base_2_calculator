@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 const Calculator = () => {
 
     const [input, setInput] = useState("");
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState<number | null>(null);
     const [error, setError] = useState("");
 
     const calculate = () => {
@@ -16,7 +16,11 @@ const Calculator = () => {
             setResult(value);
         } catch (e) {
             setResult(null);
-            setError(e.message);
+            if (e instanceof Error) {
+                setError(e.message);
+            } else {
+                setError("Something went wrong");
+            }
         }
     }
 
