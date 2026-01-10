@@ -1,0 +1,7 @@
+export function log2Approx(n) {
+    if(!Number.isFinite(n) || n  <= 0) {
+        throw new Error("Input must be a positive finite number.");
+    }
+
+    return Math.log(n) / Math.log(2);
+}
