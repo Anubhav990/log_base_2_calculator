@@ -2,12 +2,12 @@
 
 import { log2Approx } from '@/lib/log2';
 import React, { useState } from 'react'
+import { toast } from 'sonner';
 
 const Calculator = () => {
 
     const [input, setInput] = useState("");
     const [result, setResult] = useState<number | null>(null);
-    const [error, setError] = useState("");
 
     const calculate = () => {
         try {
@@ -17,9 +17,9 @@ const Calculator = () => {
         } catch (e) {
             setResult(null);
             if (e instanceof Error) {
-                setError(e.message);
+                toast.error(e.message);
             } else {
-                setError("Something went wrong");
+                toast.error("Something went wrong");
             }
         }
     }
@@ -49,8 +49,6 @@ const Calculator = () => {
                 >
                     Calculate
                 </button>
-
-                {error && <p className="text-red-400 mt-3">{error}</p>}
 
                 {result !== null && (
                     <div className="mt-4">
