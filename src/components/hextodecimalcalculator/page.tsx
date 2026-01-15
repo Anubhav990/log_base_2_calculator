@@ -1,18 +1,23 @@
-"use client";
+"use client"
 
-import { log2Approx } from '@/lib/log2';
+import { hextoDecimal } from '@/lib/htod';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 
-const Calculator = () => {
+const HexToDecimal = () => {
 
     const [input, setInput] = useState("");
     const [result, setResult] = useState<number | null>(null);
 
     const calculate = () => {
         try {
-            const n = Number(input);
-            const value = log2Approx(n);
+            if (!input.trim()) {
+                setResult(null);
+                toast.error("Please enter a hexadecimal number");
+                return;
+            }
+            const n = (input);
+            const value = hextoDecimal(n);
             setResult(value);
         } catch (e) {
             setResult(null);
@@ -26,19 +31,19 @@ const Calculator = () => {
 
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-black text-white">
+        <main className="flex items-center justify-center mt-30 text-white overflow-hidden">
             <div className="w-full max-w-md p-6 rounded-xl border border-gray-700">
-                <h1 className="text-3xl font-bold mb-1 text-center">
-                    Log Base 2 Calculator
+                <h1 className="text-2xl font-bold mb-1 text-center">
+                    Hexadecimal To Decimal Calculator
                 </h1>
 
                 <p className="text-[18px] text-gray-400 mb-4 text-center">
-                    log₂(n)  (Honest Approximation)
+                    Convert a 32 bit Hexadecimal to Decimal Integer
                 </p>
 
                 <input
                     className="w-full p-2 mb-3 rounded bg-gray-900 border border-gray-700"
-                    placeholder='Enter a positive number'
+                    placeholder='Enter a hexadecimal number'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                 />
@@ -52,9 +57,9 @@ const Calculator = () => {
 
                 {result !== null && (
                     <div className="mt-4">
-                        <p className="text-gray-400">Result (approx):</p>
+                        <p className="text-gray-400">Result :</p>
                         <p className="break-all font-mono">
-                            {result.toPrecision(17)}
+                            {result}
                         </p>
                     </div>
                 )}
@@ -63,4 +68,4 @@ const Calculator = () => {
     )
 }
 
-export default Calculator;
+export default HexToDecimal;
