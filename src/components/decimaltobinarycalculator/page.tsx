@@ -16,7 +16,12 @@ const DecimalToBinary = () => {
                 toast.error("Please enter an Integer number");
                 return;
             }
-            const n = (input);
+            const n = Number(input);
+            if (!Number.isInteger(n)) {
+                toast.error("Please enter a valid integer");
+                setResult(null);
+                return;
+            }
             const value = decimalToBinary(n);
             setResult(value);
         } catch (e) {
